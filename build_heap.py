@@ -1,5 +1,5 @@
 # python3
-import heapq
+#import heapq
 
 def build_heap(data):
     swaps = []

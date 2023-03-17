@@ -33,8 +33,6 @@ def build_heap(data):
     # TODO: Creat heap and heap sort
     # try to achieve  O(n) and not O(n2)
 
-   # return swaps
-
 
 def main():
     

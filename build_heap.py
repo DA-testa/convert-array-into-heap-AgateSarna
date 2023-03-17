@@ -1,11 +1,10 @@
 # python3
-#import heapq
 
 def build_heap(data):
     swaps = []
     n = len(data)
 
-    def heapsort(i):
+    def heapsorting(i):
         nonlocal swaps
         small = i
         left = 2*i + 1
@@ -20,10 +19,10 @@ def build_heap(data):
         if small != i:
             data[i], data[small] = data[small], data[i]
             swaps.append((i, small))
-            heapsort(small)
+            heapsorting(small)
 
     for i in range(n//2, -1, -1):
-        heapsort(i)
+        heapsorting(i)
 
     return swaps
 
@@ -44,12 +43,12 @@ def main():
     mode = input()
     if "F" in mode:
         filename = input()
-        if "a" not in filename:
-            with open(str("test/"+filename), mode = "r") as f:
-                n = int(f.readline())
-                data = list(map(int, f.readline().split()))
-        else:
-            print("error")
+        if "a" in filename:
+            return
+        filename = 'test/' + filename
+        with open(filename, 'r') as f:
+            n = int(f.readline())
+            data = list(map(int, f.readline().split()))
     elif "I" in mode:
         n = int(input())
         data = list(map(int, input().split()))

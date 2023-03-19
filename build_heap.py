@@ -4,25 +4,24 @@ def build_heap(data):
     swaps = []
     n = len(data)
 
-    def heapsorting(i):
-        nonlocal swaps
+    for i in range(n // 2, -1, -1):
         small = i
-        left = 2*i + 1
-        right = 2*i + 2
+        left = 2 * i + 1
+        right = 2 * i + 2
 
-        if left < n and data[left] < data[small]:
-            small = left
-
-        if right < n and data[right] < data[small]:
-            small = right
-
-        if small != i:
-            data[i], data[small] = data[small], data[i]
-            swaps.append((i, small))
-            heapsorting(small)
-
-    for i in range(n//2, -1, -1):
-        heapsorting(i)
+        while left < n:
+            if data[left] < data[small]:
+                small = left
+            if right < n and data[right] < data[small]:
+                small = right
+            if small != i:
+                data[i], data[small] = data[small], data[i]
+                swaps.append((i, small))
+                i = small
+                left = 2 * i + 1
+                right = 2 * i + 2
+            else:
+                break
 
     return swaps
 
@@ -40,14 +39,14 @@ def main():
     # first two tests are from keyboard, third test is from a file
     # input from keyboard
     
-    mode = input()
+    mode = input().strip()
     if "F" in mode:
         filename = input()
         if "a" in filename:
             return
-        filename = 'test/' + filename
+        filename = 'tests/' + filename
         with open(filename, 'r') as f:
-            n = int(f.readline())
+            n = int(f.readline().strip())
             data = list(map(int, f.readline().split()))
     elif "I" in mode:
         n = int(input())
@@ -55,18 +54,10 @@ def main():
     else:
         print("invalid data")
 
-    # checks if lenght of data is the same as the said lenght
     assert len(data) == n
 
-    # calls function to assess the data 
-    # and give back all swaps
     swaps = build_heap(data)
 
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
-
-    # output all swaps
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
